@@ -21,6 +21,7 @@
 
 </head>
 <body class="board">
+	<image src="cursedimage.exe" type="image" id="CreepyThingy"></image>
 	<!-- HTML for the box -->
 	<div class="box">?</div>
 
@@ -44,8 +45,9 @@
 			box.on('click', handleBoxClick);
 
 			// moves the Box to a new position on the screen along the X-Axis
-			function moveBoxTo(newPosition7) {
-				box.css("left", newPosition7);
+			function moveBoxTo(newPositionX, newPositionY) {
+				box.css("left", newPositionX);
+				box.css("top", newPositionY);
 			}
 
 			// changes the text displayed on the Box
@@ -61,14 +63,23 @@
 				var positionX = 0;
 				var points = 0;
 				var speed = 10;
+				var positionY = 0;
+				var speedY = 10;
+				var boardHeight = 0;
+				var minY = 700;
+			
+			
 			/* 
+			
+			
 			This Function will be called 20 times/second. Each time it is called,
 			it should move the Box to a new location. If the box drifts off the screen
 			turn it around! 
 			*/
 			function update() {
 				positionX = positionX + speed;
-				moveBoxTo(positionX);
+				positionY = positionY + speedY;
+				moveBoxTo(positionX, positionY);
 				
 			
 			
@@ -80,6 +91,14 @@
 			if(positionX < 0){
 				speed = -speed;
 			}
+			if(positionY <boardHeight){
+				speedY = -speedY	
+			}
+			if(positionY > minY){
+				speedY = -speedY
+			}
+			
+			
 	};
 
 			/* 
