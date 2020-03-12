@@ -22,10 +22,10 @@ var level01 = function (window) {
                 { "type": "sawblade", "x": 1100, "y": groundY - 110},
                 { "type": "spikes", "x": 1300, "y": groundY - 15},
                 { "type": "spikes", "x": 1400, "y": groundY - 15},
-                { "type": "enemy", "x": 600, "y": groundY - 100},
+                { "type": "reward2", "x": 600, "y": groundY - 50},
                 { "type": "sawblade", "x": 1700, "y": groundY - 110},
                 { "type": "spikes", "x": 2000, "y": groundY - 15},
-                { "type": "reward", "x": 2400, "y": groundY - 70},
+                { "type": "enemy", "x": 1000, "y": groundY - 100},
                 { "type": "sawblade", "x": 2500, "y": groundY - 110},
                 { "type": "spikes", "x": 2700, "y": groundY - 15},
                 { "type": "spikes", "x": 3000, "y": groundY - 15},
@@ -102,7 +102,7 @@ var level01 = function (window) {
                 createReward(gameItemObject.x, gameItemObject.y);
               }
               if(gameItemObject.type === 'reward2'){
-                createReward(gameItemObject.x, gameItemObject.y);
+                createReward2(gameItemObject.x, gameItemObject.y);
               }
         } 
             
@@ -135,31 +135,30 @@ var level01 = function (window) {
     
     function createEnemy(x,y){
     var enemy =  game.createGameItem('enemy',25);
-    var redSquare = draw.bitmap('img/badguy.png');
+        enemy.x = x;
+        enemy.y = y;
+        enemy.velocityX = -.5;
+        game.addGameItem(enemy);
+    
+    var redSquare = draw.bitmap('img/baldi.png');
         redSquare.x = -25;
         redSquare.y = -25;
         enemy.addChild(redSquare);
         
-        enemy.x = 400;
-        enemy.y = groundY-50;
-        
-        game.addGameItem(enemy);
-        enemy.velocityX = 1;
-        
-        enemy.onPlayerCollision = function(){
+       enemy.onPlayerCollision = function() { 
             game.changeIntegrity(-30);
-            enemy.fadeOut;
+            enemy.fadeOut();
         };
-    
-        enemy.onProjectileCollision = function(){
+        
+        enemy.onProjectileCollision = function() {
             game.increaseScore(50);
-            enemy.fadeOut;
-        }
+            enemy.fadeOut();
+        };
     }
     
     function createReward(x , y){
 
-        var reward = game.createGameItem('reward', 50);
+        var reward = game.createGameItem('reward', 10);
             reward.x = x;
             reward.y = y;
             reward.scaleX = .5
@@ -167,15 +166,15 @@ var level01 = function (window) {
             reward.velocityX = -2;
             
             var picture = draw.bitmap('img/iceicebaby.png');
-            picture.x = -80;
-            picture.y = -100;
+            picture.x = -25;
+            picture.y = -25;
             
             reward.addChild(picture);
             game.addGameItem(reward);
             
             reward.onPlayerCollision = function() {
-                game.increaseScore(1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000);
-                reward.fadeOut();
+                game.increaseScore(10);
+               reward.fadeOut();
             };
     }    
     
@@ -184,9 +183,11 @@ var level01 = function (window) {
         var reward2 = game.createGameItem('reward2', 25);
             reward2.x = x;
             reward2.y = y;
+            reward2.scaleX = .5;
+            reward2.scaleY = .5;
             reward2.velocityX = -2;
             
-            var picture = draw.bitmap('img/Water.png');
+            var picture = draw.bitmap('img/red.png');
             picture.x = -25;
             picture.y = -25;
             
@@ -194,7 +195,7 @@ var level01 = function (window) {
             game.addGameItem(reward2);
             
             reward2.onPlayerCollision = function() {
-                game.increaseScore(50);
+                game.increaseScore(9900);
                 reward2.fadeOut();
             };
     }    
